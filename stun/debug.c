@@ -75,6 +75,10 @@ void stun_debug (const char *fmt, ...)
   }
 }
 
+#ifdef WIN32
+#define snprintf _snprintf
+#endif //WIN32
+
 void stun_debug_bytes (const char *prefix, const void *data, size_t len)
 {
   size_t i;
@@ -95,6 +99,11 @@ void stun_debug_bytes (const char *prefix, const void *data, size_t len)
   stun_debug ("%s", bytes);
   free(bytes);
 }
+
+#ifdef snprintf
+#undef snprintf
+#endif // snprintf
+
 
 
 void stun_set_debug_handler (StunDebugHandler _handler)
